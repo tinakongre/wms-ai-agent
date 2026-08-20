@@ -1,0 +1,15 @@
+Warehouse Operations
+
+Warehouse staff should regularly monitor inventory levels.
+
+Products below their reorder level should be reviewed for replenishment.
+
+When prioritizing replenishment, staff should consider the difference between current quantity and reorder level.
+
+Inventory quantities represent the currently available units recorded in the warehouse inventory system.
+
+Warehouse W01 primarily contains keyboard and mouse inventory.
+
+Warehouse W02 contains monitor inventory.
+
+Warehouse W03 contains mechanical keyboard inventory.

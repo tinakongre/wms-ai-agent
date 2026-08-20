@@ -1,0 +1,15 @@
+Warehouse Reorder Policy
+
+A product should be reordered when its available quantity falls below its reorder level.
+
+The reorder level is the minimum recommended stock quantity for a product.
+
+If the available quantity is below the reorder level, the product is considered low on stock and should be reviewed for replenishment.
+
+Warehouse staff should prioritize products with the largest gap between their current quantity and reorder level.
+
+For example, if a product has 15 units available and its reorder level is 50 units, the product is low on stock and should be considered for reorder.
+
+Inventory quantities are maintained in the warehouse inventory database.
+
+
