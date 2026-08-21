@@ -7,11 +7,25 @@ from pypdf import PdfReader
 
 KNOWLEDGE_DIR = Path("backend/knowledge")
 
-model = SentenceTransformer("all-MiniLM-L6-v2")
+# Model is loaded only when RAG is actually needed
+model = None
+
+
+def get_model():
+    global model
+
+    if model is None:
+        print("Loading embedding model...")
+        model = SentenceTransformer("all-MiniLM-L6-v2")
+
+    return model
 
 
 def load_documents():
     documents = []
+
+    if not KNOWLEDGE_DIR.exists():
+        return documents
 
     for file_path in KNOWLEDGE_DIR.iterdir():
 
@@ -51,7 +65,10 @@ def chunk_text(text, chunk_size=400):
     chunks = []
 
     for i in range(0, len(words), chunk_size):
-        chunk = " ".join(words[i:i + chunk_size])
+
+        chunk = " ".join(
+            words[i:i + chunk_size]
+        )
 
         if chunk.strip():
             chunks.append(chunk)
@@ -93,7 +110,9 @@ def build_index():
         for chunk in chunks
     ]
 
-    embeddings = model.encode(
+    embedding_model = get_model()
+
+    embeddings = embedding_model.encode(
         texts,
         convert_to_numpy=True
     )
@@ -107,11 +126,9 @@ def build_index():
     return index, chunks
 
 
-# --------------------------------------------------
-# BUILD RAG INDEX
-# --------------------------------------------------
-
-index, chunks = build_index()
+# Do NOT build the index when the application starts.
+index = None
+chunks = []
 
 
 def rebuild_index():
@@ -122,12 +139,26 @@ def rebuild_index():
     index, chunks = build_index()
 
 
-def search_knowledge(question, top_k=3, max_distance=1.2):
+def search_knowledge(
+    question,
+    top_k=3,
+    max_distance=1.2
+):
+
+    global index
+    global chunks
+
+    # Build the index only when RAG is actually requested
+    if index is None:
+
+        index, chunks = build_index()
 
     if index is None or not chunks:
         return []
 
-    question_embedding = model.encode(
+    embedding_model = get_model()
+
+    question_embedding = embedding_model.encode(
         [question],
         convert_to_numpy=True
     )
