@@ -1,24 +1,8 @@
 from pathlib import Path
-
-import faiss
-from sentence_transformers import SentenceTransformer
 from pypdf import PdfReader
 
 
 KNOWLEDGE_DIR = Path("backend/knowledge")
-
-# Model is loaded only when RAG is actually needed
-model = None
-
-
-def get_model():
-    global model
-
-    if model is None:
-        print("Loading embedding model...")
-        model = SentenceTransformer("all-MiniLM-L6-v2")
-
-    return model
 
 
 def load_documents():
@@ -31,7 +15,9 @@ def load_documents():
 
         if file_path.suffix.lower() == ".txt":
 
-            text = file_path.read_text(encoding="utf-8")
+            text = file_path.read_text(
+                encoding="utf-8"
+            )
 
         elif file_path.suffix.lower() == ".pdf":
 
@@ -60,6 +46,7 @@ def load_documents():
 
 
 def chunk_text(text, chunk_size=400):
+
     words = text.split()
 
     chunks = []
@@ -98,91 +85,63 @@ def create_chunks():
     return chunks
 
 
-def build_index():
+# --------------------------------------------------
+# BUILD DOCUMENT INDEX
+# --------------------------------------------------
 
-    chunks = create_chunks()
-
-    if not chunks:
-        return None, []
-
-    texts = [
-        chunk["text"]
-        for chunk in chunks
-    ]
-
-    embedding_model = get_model()
-
-    embeddings = embedding_model.encode(
-        texts,
-        convert_to_numpy=True
-    )
-
-    dimension = embeddings.shape[1]
-
-    index = faiss.IndexFlatL2(dimension)
-
-    index.add(embeddings)
-
-    return index, chunks
-
-
-# Do NOT build the index when the application starts.
-index = None
-chunks = []
+chunks = create_chunks()
 
 
 def rebuild_index():
 
-    global index
     global chunks
 
-    index, chunks = build_index()
+    chunks = create_chunks()
 
 
-def search_knowledge(
-    question,
-    top_k=3,
-    max_distance=1.2
-):
+def search_knowledge(question, top_k=3):
 
-    global index
-    global chunks
-
-    # Build the index only when RAG is actually requested
-    if index is None:
-
-        index, chunks = build_index()
-
-    if index is None or not chunks:
+    if not chunks:
         return []
 
-    embedding_model = get_model()
-
-    question_embedding = embedding_model.encode(
-        [question],
-        convert_to_numpy=True
+    question_words = set(
+        question.lower().split()
     )
 
-    distances, indices = index.search(
-        question_embedding,
-        min(top_k, len(chunks))
+    scored_chunks = []
+
+    for chunk in chunks:
+
+        chunk_words = set(
+            chunk["text"].lower().split()
+        )
+
+        matches = question_words.intersection(
+            chunk_words
+        )
+
+        score = len(matches)
+
+        if score > 0:
+
+            scored_chunks.append(
+                (score, chunk)
+            )
+
+    scored_chunks.sort(
+        key=lambda item: item[0],
+        reverse=True
     )
 
     results = []
 
-    for distance, index_position in zip(
-        distances[0],
-        indices[0]
-    ):
+    for score, chunk in scored_chunks[:top_k]:
 
-        if index_position < len(chunks):
-
-            if distance <= max_distance:
-
-                results.append({
-                    "source": chunks[index_position]["source"],
-                    "text": chunks[index_position]["text"],
-                    "distance": float(distance)
-                })
+        results.append({
+            "source": chunk["source"],
+            "text": chunk["text"],
+            "distance": float(1 / (score + 1))
+        })
 
     return results
+    
