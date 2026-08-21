@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 
-const API_URL = "https://stockmind-ai-01.onrender.com";
-
+const API_URL = import.meta.env.VITE_API_URL;
 function App() {
   const [question, setQuestion] = useState("");
   const [messages, setMessages] = useState([]);
