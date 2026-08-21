@@ -27,14 +27,15 @@ button {
 /* Sidebar */
 
 .sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 250px;
-  min-height: 100vh;
-  background: #111827;
-  color: white;
-  padding: 24px 16px;
-  display: flex;
-  flex-direction: column;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 1000;
 }
+
 
 .logo {
   display: flex;
@@ -83,8 +84,14 @@ nav {
 
 .nav-item:hover,
 .nav-item.active {
-  background: #1f2937;
-  color: white;
+  background: #4a3b68;
+  color: #ffffff;
+
+  border: 1px solid #65548a;
+
+  box-shadow:
+    0 3px 0 #15101f,
+    0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 .sidebar-bottom {
@@ -113,6 +120,8 @@ nav {
   display: flex;
   flex-direction: column;
   min-width: 0;
+  margin-left: 250px;
+  min-height: 100vh;
 }
 
 .header {
@@ -402,4 +411,957 @@ body,
   flex: 1;
   width: calc(100% - 250px);
   min-height: 100vh;
+}
+.documents-page {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 70px 40px;
+}
+
+.documents-card {
+  width: 100%;
+  max-width: 700px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  padding: 40px;
+  text-align: center;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+}
+
+.documents-icon {
+  font-size: 48px;
+  margin-bottom: 15px;
+}
+
+.documents-card h2 {
+  margin: 0 0 10px;
+  font-size: 26px;
+  color: #111827;
+}
+
+.documents-card p {
+  margin: 0 auto 30px;
+  max-width: 560px;
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+.file-picker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 22px;
+  border: 1px dashed #9ca3af;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #374151;
+  background: #f9fafb;
+  transition: 0.2s;
+}
+
+.file-picker:hover {
+  background: #f3f4f6;
+}
+
+.file-picker input {
+  display: none;
+}
+
+.selected-file {
+  margin-top: 18px;
+  padding: 12px;
+  background: #f3f4f6;
+  border-radius: 8px;
+  color: #374151;
+  font-size: 14px;
+}
+
+.upload-button {
+  display: block;
+  margin-top: 12px;
+  margin: 12px auto 0;
+
+
+  background: #7c3aed;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.upload-button:hover {
+  background: #6d28d9;
+}
+
+.upload-status {
+  margin-top: 20px;
+  padding: 12px;
+  border-radius: 8px;
+  background: #f0fdf4;
+  color: #166534;
+  font-size: 14px;
+}
+
+.inventory-page {
+  padding: 70px 40px;
+}
+
+.inventory-card {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 40px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  text-align: center;
+}
+
+.back-chat-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background: #111827;
+  color: white;
+  cursor: pointer;
+}
+.message-sources {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid #e5e7eb;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.message-sources span {
+  font-weight: 600;
+  color: #374151;
+}
+.documents-container {
+  padding: 32px;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.documents-header {
+  margin-bottom: 24px;
+}
+
+.documents-header h2 {
+  margin: 0 0 6px;
+}
+
+.documents-header p {
+  margin: 0;
+  color: #6b7280;
+}
+
+.documents-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.document-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: white;
+}
+
+.document-info {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.document-icon {
+  font-size: 28px;
+}
+
+.document-info h3 {
+  margin: 0 0 5px;
+  font-size: 15px;
+}
+
+.document-type {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.delete-document {
+  border: none;
+  background: #fee2e2;
+  color: #b91c1c;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.delete-document:hover {
+  background: #fecaca;
+}
+
+.empty-documents {
+  text-align: center;
+  padding: 60px 20px;
+  color: #6b7280;
+}
+
+.empty-documents div {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.empty-documents h3 {
+  color: #374151;
+  margin-bottom: 6px;
+}
+.document-card h3 {
+  font-size: 14px;
+  margin: 0;
+}
+.documents-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+.documents-list-header h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.documents-list-header span {
+  font-size: 13px;
+  color: #777;
+}
+.documents-list {
+  width: 100%;
+  text-align: left;
+  margin-top: 30px;
+}
+/* ================================
+   INVENTORY PAGE
+================================ */
+
+.inventory-page {
+  padding: 32px;
+  overflow-y: auto;
+}
+
+/* Header */
+
+.inventory-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+.inventory-header h2 {
+  margin: 0 0 8px 0;
+  color: #7c3aed;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.inventory-header p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 15px;
+}
+
+/* Refresh button */
+
+.refresh-inventory {
+  padding: 10px 18px;
+  border: 1px solid #7c3aed;
+  border-radius: 8px;
+  background: white;
+  color: #7c3aed;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.refresh-inventory:hover {
+  background: #7c3aed;
+  color: white;
+}
+
+/* ================================
+   STAT CARDS
+================================ */
+
+.inventory-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+.inventory-stat-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 20px 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.inventory-stat-card span {
+  color: #6b7280;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.inventory-stat-card strong {
+  color: #7c3aed;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+/* ================================
+   INVENTORY TABLE
+================================ */
+
+.inventory-table-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.inventory-table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 18px 22px;
+
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.inventory-table-header h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #1f2937;
+}
+
+.inventory-table-header span {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* Table wrapper */
+
+.inventory-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* Actual table */
+
+.inventory-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+/* Table cells */
+
+.inventory-table th,
+.inventory-table td {
+  padding: 15px 18px;
+  text-align: left;
+
+  border-right: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* Header */
+
+.inventory-table th {
+  background: #f5f3ff;
+  color: #5b21b6;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  border-top: 1px solid #e5e7eb;
+}
+
+/* Body */
+
+.inventory-table td {
+  color: #374151;
+  font-size: 14px;
+}
+
+/* Remove last vertical border */
+
+.inventory-table th:last-child,
+.inventory-table td:last-child {
+  border-right: none;
+}
+
+/* Remove bottom border from last row */
+
+.inventory-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Hover */
+
+.inventory-table tbody tr:hover {
+  background: #fafafa;
+}
+
+/* Product name */
+
+.inventory-table .product-name {
+  font-weight: 600;
+  color: #111827;
+}
+
+/* ================================
+   STOCK STATUS
+================================ */
+
+.stock-status {
+  display: inline-block;
+
+  padding: 5px 10px;
+
+  border-radius: 999px;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.stock-status.good {
+  background: #ecfdf5;
+  color: #047857;
+}
+
+.stock-status.low {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+/* Empty/loading */
+
+.inventory-empty {
+  padding: 40px;
+  text-align: center;
+  color: #6b7280;
+}
+
+/* ================================
+   RESPONSIVE
+================================ */
+
+@media (max-width: 900px) {
+  .inventory-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .inventory-page {
+    padding: 20px;
+  }
+
+  .inventory-header {
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .inventory-stats {
+    grid-template-columns: 1fr;
+  }
+}
+.voice-button {
+  background: transparent;
+  border: none;
+  color: #111827;
+  padding: 6px;
+  margin: 0 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.voice-button:hover {
+  background: transparent;
+  color: #6d28d9;
+}
+
+.voice-button.listening {
+  color: #6d28d9;
+  background: transparent;
+}
+
+/* ================================
+   SIDEBAR + NAVIGATION STYLE
+   ================================ */
+/* =================================
+   SIDEBAR - LOGO PURPLE THEME
+   ================================= */
+
+.sidebar {
+  background: #2d1254;
+  color: white;
+width: 290px;
+  display: flex;
+  flex-direction: column;
+}
+.main {
+  margin-left: 290px;
+}
+.sidebar nav {
+  width: 100%;
+}
+
+
+/* Normal buttons */
+.nav-item {
+  width: 88%;
+  margin: 6px auto;
+  padding: 9px 12px;
+
+  display: block;
+  text-align: center;
+
+  background: #403087;
+  color: white;
+
+  border: 1px solid #947cff;
+  border-radius: 9px;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 3px 0 #887ac9,
+    0 5px 10px rgba(48, 30, 120, 0.20);
+
+  transition: all 0.15s ease;
+}
+
+
+/* Hover */
+.nav-item:hover {
+  background: #a998eb;
+  color: white;
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 5px 0 #5136c7,
+    0 8px 14px rgba(48, 30, 120, 0.25);
+}
+
+
+/* Currently selected */
+.nav-item.active {
+  background: #ab8cd5;
+  color: #1a152b;
+
+  border: 1px solid #ffffff;
+
+  box-shadow:
+    0 3px 0 #5136c7,
+    0 6px 12px rgba(48, 30, 120, 0.22);
+}
+
+
+/* Click */
+.nav-item:active {
+  transform: translateY(1px);
+}
+
+
+/* System Online */
+.sidebar-bottom {
+  margin-top: auto;
+  padding-bottom: 20px;
+}
+.logo {
+  padding-bottom: 9px;
+  margin-bottom: 29px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+/* Main header panel */
+.header {
+  background: #f1ecfa;
+  border: 1px solid #ded3ef;
+  border-radius: 14px;
+  padding: 22px 26px;
+  box-shadow: 0 4px 12px rgba(80, 50, 130, 0.08);
+}
+
+
+/* Main StockMind tagline */
+.header h1 {
+  color: #5032c4;
+  font-size: larger;
+  font-size: 25px;
+  font-weight: 1000;
+  letter-spacing: 0.3px;
+  text-shadow: 1px 2px 0 rgba(255, 255, 255, 0.7);
+}
+
+
+/* Subtitle */
+.header p {
+  color: #655b75;
+}
+
+
+/* StockMind badge */
+.header-badge {
+  background: #6d4aff;
+  color: white;
+  box-shadow: 0 3px 0 #5136c7;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 9px 16px;
+  letter-spacing: 0.4px;
+}
+.logo h2 {
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  text-shadow:
+    1px 2px 0 rgba(255, 255, 255, 0.45),
+    0 4px 8px rgba(80, 50, 130, 0.18);
+    padding-top: 13px;
+}
+
+/* Imported CSV heading */
+.imported-csv-section .imported-csv-title {
+  color: #6d4aff !important;
+  font-size: 20px;
+  font-weight: 800;
+  margin: 0 0 14px 0;
+}
+
+
+/* Move Imported CSV section slightly left */
+.inventory-table-header:has(.imported-csv-title) {
+  padding-left: 2px;
+}
+.inventory-table-header .imported-csv-title {
+  color: #5741ad !important;
+  font-size: 25px;
+  font-weight: 800;
+  margin: 0;
+}
+
+/* ============================= */
+/* IMPORTED CSV TABLE */
+/* ============================= */
+
+.csv-table {
+  width: 100%;
+  margin-top: 14px;
+  margin-bottom: 32px;
+
+  border: 1px solid #d8cce8;
+  border-radius: 12px;
+  overflow: hidden;
+
+  background: #ffffff;
+}
+
+/* Header */
+.csv-table .csv-table-header {
+  display: grid !important;
+  grid-template-columns: 55% 25% 20% !important;
+
+  align-items: center;
+
+  padding: 15px 18px;
+
+  box-sizing: border-box;
+
+  background: #f1ebfa;
+
+  color: #6842b8;
+
+  font-size: 15px;
+  font-weight: 800;
+
+  border-bottom: 1px solid #cfc2df;
+}
+
+/* Header column separators */
+.csv-table-header > span {
+  padding-left: 14px;
+  min-height: 24px;
+
+  display: flex;
+  align-items: center;
+
+  border-left: 1px solid #cfc2df;
+}
+
+/* First header column */
+.csv-table-header > span:first-child {
+  padding-left: 0;
+  border-left: none;
+}
+
+/* Rows */
+.csv-table .csv-table-row {
+  display: grid !important;
+  grid-template-columns: 55% 25% 20% !important;
+
+  align-items: center;
+
+  min-height: 58px;
+
+  padding: 0 18px;
+
+  box-sizing: border-box;
+
+  color: #403650;
+
+  border-bottom: 1px solid #dcd4e7;
+}
+
+/* Remove bottom border from last row */
+.csv-table .csv-table-row:last-child {
+  border-bottom: none;
+}
+
+/* Vertical column lines */
+.csv-table-row > span {
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+
+  padding-left: 14px;
+
+  border-left: 1px solid #dcd4e7;
+}
+
+/* First column */
+.csv-table-row > span:first-child {
+  padding-left: 0;
+  border-left: none;
+}
+
+/* File name */
+.csv-file-name {
+  text-align: left;
+  font-weight: 600;
+}
+
+/* Products */
+.csv-table-row > span:nth-child(2) {
+  text-align: left;
+  justify-content: flex-start;
+}
+
+/* Action column */
+.csv-action {
+  justify-content: flex-start !important;
+
+  padding-left: 22px !important;
+}
+
+/* Delete button */
+.csv-table .delete-csv-button {
+  padding: 7px 17px;
+
+  border: none;
+  border-radius: 7px;
+
+  background: #f4dfe4;
+  color: #a13e4d;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.csv-table .delete-csv-button:hover {
+  background: #e9c7ce;
+  transform: translateY(-1px);
+}
+
+/* Row hover */
+.csv-table .csv-table-row:hover {
+  background: #faf8fd;
+}
+
+/* Space before Inventory Overview */
+.inventory-imports-card {
+  margin-bottom: 32px;
+}
+.inventory-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.add-product-button,
+.import-csv-button,
+.import-confirm-button,
+.refresh-inventory {
+  height: 38px;
+  padding: 0 15px;
+  border: 1px solid #d6c8e8;
+  border-radius: 8px;
+  background: #f3eef9;
+  color: #6842b8;
+  font-size: 13px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.add-product-button:hover,
+.import-csv-button:hover,
+.import-confirm-button:hover,
+.refresh-inventory:hover {
+  background: #e7ddf4;
+  border-color: #bfa9dc;
+  transform: translateY(-1px);
+}
+
+.import-confirm-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+/* Add Product form */
+.add-product-card {
+  margin-top: 18px;
+  padding: 22px;
+  border-radius: 12px;
+  background: #faf8fd;
+  border: 1px solid #ddd2ed;
+}
+
+.add-product-card h3 {
+  color: #5f3aa6;
+  margin-bottom: 18px;
+  font-size: 18px;
+}
+
+/* Input fields */
+.product-form input {
+  background: #f5f1fa;
+  color: #403650;
+  border: 1px solid #d6c8e8;
+  border-radius: 8px;
+  padding: 11px 13px;
+  font-size: 14px;
+  outline: none;
+}
+
+.product-form input::placeholder {
+  color: #81778f;
+}
+
+.product-form input:focus {
+  border-color: #8b63c7;
+  box-shadow: 0 0 0 2px rgba(139, 99, 199, 0.12);
+}
+.product-form-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 18px;
+}
+.cancel-product,
+.save-product {
+  padding: 9px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid #cbb9e3;
+  transition: all 0.2s ease;
+}
+
+/* Cancel */
+.cancel-product {
+  background: #eee8f6;
+  color: #654a87;
+}
+
+/* Add Product / Save */
+.save-product {
+  background: #7652b5;
+  color: #ffffff;
+  border-color: #7652b5;
+}
+
+.cancel-product:hover {
+  background: #e2d8ef;
+}
+
+.save-product:hover {
+  background: #62419c;
+  transform: translateY(-1px);
+}
+.product-form {
+    grid-template-columns: repeat(5, 1fr);
+ display: grid;
+  gap: 12px;
+}
+.inventory-header h2.inventory-overview-title {
+  color: #593d96 !important;
+  font-size: 27px;
+}
+
+.inventory-table-card h3.all-inventory-title {
+  color: #4f2a9f !important;
+  font-size: 23px;
+}
+/* Keep Status and Delete separated */
+.inventory-table td:last-child {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  min-width: 180px;
+}
+
+.delete-inventory-button {
+  margin-left: auto;
 }

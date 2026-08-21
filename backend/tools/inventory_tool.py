@@ -93,3 +93,16 @@ def get_inventory_summary():
         "total_quantity": total_quantity,
         "low_stock_products": low_stock_count
     }
+def get_all_inventory():
+    products = inventory_collection.find({})
+
+    return [
+        {
+            "product_id": product["product_id"],
+            "product_name": product["product_name"],
+            "warehouse": product["warehouse"],
+            "quantity": product["quantity"],
+            "reorder_level": product["reorder_level"]
+        }
+        for product in products
+    ]
