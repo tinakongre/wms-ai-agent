@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 
+const API_URL = "https://stockmind-ai-01.onrender.com";
+
 function App() {
   const [question, setQuestion] = useState("");
   const [messages, setMessages] = useState([]);
@@ -27,7 +29,7 @@ function App() {
 
   const loadDocuments = async () => {
     try {
-      const response = await fetch("http://localhost:8000/documents");
+      const response = await fetch(`${API_URL}/documents`);
 
       console.log("Documents response:", response);
 
@@ -48,7 +50,7 @@ function App() {
 
     try {
       const response = await fetch(
-        "http://localhost:8000/inventory"
+       `${API_URL}/inventory`
       );
 
       const data = await response.json();
@@ -67,7 +69,7 @@ function App() {
   const loadInventoryImports = async () => {
     try {
       const response = await fetch(
-        "http://localhost:8000/inventory/imports"
+       `${API_URL}/inventory/imports`
       );
 
       const data = await response.json();
@@ -90,7 +92,7 @@ function App() {
 
     try {
       const response = await fetch(
-        "http://localhost:8000/inventory/import",
+        `${API_URL}/inventory/import`,
         {
           method: "POST",
           body: formData,
@@ -132,7 +134,7 @@ function App() {
 
     try {
       const response = await fetch(
-        "http://127.0.0.1:8000/inventory/add",
+        `${API_URL}/inventory/add`,
         {
           method: "POST",
           headers: {
@@ -183,8 +185,7 @@ function App() {
 
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/documents/${encodeURIComponent(filename)}`,
-        {
+`${API_URL}/documents/${encodeURIComponent(filename)}`,        {
           method: "DELETE",
         }
       );
@@ -260,7 +261,7 @@ function App() {
     setMessages((prev) => [...prev, userMessage]);
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/chat", {
+      const response = await fetch(`${API_URL}/chat`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -320,7 +321,7 @@ function App() {
     setUploadStatus("Uploading...");
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/upload", {
+      const response = await fetch(`${API_URL}/upload`, {
         method: "POST",
         body: formData,
       });
@@ -704,9 +705,9 @@ function App() {
                             try {
 
                               const response = await fetch(
-                                `http://localhost:8000/inventory/import/${encodeURIComponent(
-                                  file.filename
-                                )}`,
+                                `${API_URL}/inventory/import/${encodeURIComponent(
+  file.filename
+)}`,
                                 {
                                   method: "DELETE",
                                 }
@@ -1003,7 +1004,7 @@ function App() {
 
                                   try {
                                     const response = await fetch(
-                                      `http://localhost:8000/inventory/${item.product_id}`,
+                                     `${API_URL}/inventory/${item.product_id}`,
                                       {
                                         method: "DELETE",
                                       }
